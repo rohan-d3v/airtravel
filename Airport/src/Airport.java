@@ -2,11 +2,22 @@ import java.time.Duration;
 
 //rohan and caitlin
 public  final class Airport {
-    private Airport(String code, Duration connectionTimeMin){
-        String AirportCode=null;
-        String
-        code = AirportCode;
-        connectionTimeMin =
+
+
+    String code;
+    Duration ConnectionTimeMin;
+
+    private Airport(String code, Duration connectionTimeMin) {
+        code = getCode();
+        ConnectionTimeMin = getConnectionTimeMin();
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public Duration getConnectionTimeMin() {
+        return ConnectionTimeMin;
+    }
 }
+
