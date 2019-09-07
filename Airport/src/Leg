@@ -1,0 +1,11 @@
+// Rohan and Caitlin
+public class Leg {
+    private Airport origin;
+    private Airport destination;
+    private Leg(Airport m_origin, Airport m_destination)
+    {
+        origin = m_origin;
+        destination = m_destination;
+    }
+
+}
