@@ -6,6 +6,6 @@ import java.time.LocalTime;
  * @project:    2) AirTravel
  * @class:      SimpleFlight
  */
-public final class SimpleFlight extends AbstractFlight{
+public final class SimpleFlight{
 
 }
