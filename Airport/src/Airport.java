@@ -6,7 +6,7 @@
  */
 import java.time.Duration;
 
-public  final class Airport {
+public  final class Airport implements Comparable<Airport> {
 
     //private final String shortCode;
     private final String code;
@@ -42,6 +42,11 @@ public  final class Airport {
 
     public Duration getConnectionTimeMin() {
         return connectionTimeMin;
+    }
+
+    @Override
+    public int compareTo(Airport airport) {
+        return 0;
     }
 }
 
