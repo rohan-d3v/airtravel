@@ -1,5 +1,6 @@
 
 import java.time.LocalTime;
+import java.time.Duration;
 
 public class FlightSchedule {
     private final LocalTime arrivalTime;
@@ -14,5 +15,10 @@ public class FlightSchedule {
     public static FlightSchedule of(LocalTime m_arrival, LocalTime m_departure)
     {
         return new FlightSchedule(m_arrival, m_departure);
+    }
+
+    public boolean isShort(Duration durationMax)
+    {
+        return false;
     }
 }
