@@ -1,3 +1,12 @@
+import java.time.Duration;
+
 //rohan and caitlin
-public class Airport {
+public  final class Airport {
+    private Airport(String code, Duration connectionTimeMin){
+        String AirportCode=null;
+        String
+        code = AirportCode;
+        connectionTimeMin =
+    }
+
 }
