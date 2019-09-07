@@ -22,12 +22,12 @@ public class Leg {
         return new Leg(m_origin, m_destination);
     }
 
-    public Airport get_origin()
+    public Airport origin()
     {
         return origin;
     }
 
-    public Airport get_destination()
+    public Airport destination()
     {
         return destination;
     }

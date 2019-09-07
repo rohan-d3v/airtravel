@@ -32,4 +32,14 @@ public class FlightSchedule {
     {
         return durationMax.compareTo(duration) <= 0;
     }
+
+    public LocalTime departureTime()
+    {
+        return departureTime;
+    }
+
+    public LocalTime arrivalTime()
+    {
+        return arrivalTime;
+    }
 }

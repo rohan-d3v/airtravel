@@ -5,6 +5,7 @@
  * @interface:  Flight
  */
 import java.time.LocalTime;
+import java.time.Duration;
 
 public interface Flight {
     String getCode();
@@ -14,5 +15,5 @@ public interface Flight {
     FlightSchedule getFlightSchedule();
     LocalTime departureTime();
     LocalTime arrivalTime();
-    boolean isShort();
+    boolean isShort(Duration durationMax);
 }
