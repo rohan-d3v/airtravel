@@ -8,7 +8,6 @@ import java.time.Duration;
 
 public  final class Airport implements Comparable<Airport> {
 
-    //private final String shortCode;
     private final String code;
     private final Duration connectionTimeMin;
 
@@ -17,9 +16,19 @@ public  final class Airport implements Comparable<Airport> {
         connectionTimeMin = new_connectionTimeMin;
     }
 
+    public static final Airport of(String code, Duration connectionTimeMin)
+    {
+        if(code == null || connectionTimeMin == null)
+        {
+            throw new NullPointerException("Airport must have a code and a minimum connection time");
+        }
+
+        return new Airport(code, connectionTimeMin);
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Airport))
+        if((obj == null) || !(obj instanceof Airport))
             return false;
         Airport otherAirport = (Airport) obj;
         return (otherAirport.getCode().equals(code) && otherAirport.getConnectionTimeMin().equals(connectionTimeMin));
@@ -46,7 +55,7 @@ public  final class Airport implements Comparable<Airport> {
 
     @Override
     public int compareTo(Airport airport) {
-        return 0;
+        return code.compareTo(airport.getCode());
     }
 }
 
