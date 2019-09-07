@@ -8,25 +8,26 @@ import java.time.Duration;
 
 public  final class Airport {
 
-    String shortCode;
-    String code;
-    Duration ConnectionTimeMin;
+    //private final String shortCode;
+    private final String code;
+    private final Duration connectionTimeMin;
 
-    private Airport(String code, Duration connectionTimeMin) {
-        if (code==null || connectionTimeMin==null)
-            throw new NullPointerException("Code and/or Connection time is null: Please check values");
-        code = getCode();
-        ConnectionTimeMin = getConnectionTimeMin();
+    private Airport(String new_code, Duration new_connectionTimeMin) {
+        code = new_code;
+        connectionTimeMin = new_connectionTimeMin;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(!(obj instanceof Airport))
+            return false;
+        Airport otherAirport = (Airport) obj;
+        return (otherAirport.getCode().equals(code) && otherAirport.getConnectionTimeMin().equals(connectionTimeMin));
     }
 
     @Override
     public String toString() {
-        return getShortCode();
+        return code;
     }
 
     @Override
@@ -34,16 +35,13 @@ public  final class Airport {
         return super.hashCode();
     }
 
-    public String getShortCode() {
-        return shortCode;
-    }
 
     public String getCode() {
         return code;
     }
 
     public Duration getConnectionTimeMin() {
-        return ConnectionTimeMin;
+        return connectionTimeMin;
     }
 }
 
