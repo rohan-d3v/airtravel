@@ -1,4 +1,9 @@
-// Rohan and Caitlin
+/**
+ * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
+ * @case-id:    cac226, rxr353
+ * @project:    2) AirTravel
+ * @class:      Leg
+ */
 public class Leg {
     private final Airport origin;
     private final Airport destination;

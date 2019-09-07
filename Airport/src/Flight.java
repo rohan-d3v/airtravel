@@ -1,5 +1,9 @@
-// caitlin and rohan
-
+/**
+ * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
+ * @case-id:    cac226, rxr353
+ * @project:    2) AirTravel
+ * @interface:  Flight
+ */
 import java.time.LocalTime;
 
 public interface Flight {

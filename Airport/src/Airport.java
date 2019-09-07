@@ -1,6 +1,11 @@
+/**
+ * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
+ * @case-id:    cac226, rxr353
+ * @project:    2) AirTravel
+ * @class:      Airport
+ */
 import java.time.Duration;
 
-//rohan and caitlin
 public  final class Airport {
 
     String shortCode;
