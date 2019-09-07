@@ -1,6 +1,3 @@
-import java.time.Duration;
-import java.time.LocalTime;
-
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
  * @case-id:    cac226, rxr353
@@ -26,11 +23,11 @@ public final class SimpleFlight extends AbstractFlight{
 
     @Override
     public Leg getLeg() {
-        return null;
+        return leg;
     }
     @Override
     public FlightSchedule getFlightSchedule() {
-        return null;
+        return flightSchedule;
     }
 
 
