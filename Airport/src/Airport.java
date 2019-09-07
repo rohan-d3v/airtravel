@@ -13,6 +13,8 @@ public  final class Airport {
     Duration ConnectionTimeMin;
 
     private Airport(String code, Duration connectionTimeMin) {
+        if (code==null || connectionTimeMin==null)
+            throw new NullPointerException("Code and/or Connection time is null: Please check values");
         code = getCode();
         ConnectionTimeMin = getConnectionTimeMin();
     }
