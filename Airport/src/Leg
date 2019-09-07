@@ -1,11 +1,29 @@
 // Rohan and Caitlin
 public class Leg {
-    private Airport origin;
-    private Airport destination;
+    private final Airport origin;
+    private final Airport destination;
     private Leg(Airport m_origin, Airport m_destination)
     {
         origin = m_origin;
         destination = m_destination;
     }
 
+    public static final Leg of(Airport m_origin, Airport m_destination)
+    {
+        if(m_origin == null || m_destination == null)
+        {
+            throw new NullPointerException("Airport origin/destination cannot be null");
+        }
+        return new Leg(m_origin, m_destination);
+    }
+
+    public Airport get_origin()
+    {
+        return origin;
+    }
+
+    public Airport get_destination()
+    {
+        return destination;
+    }
 }
