@@ -14,7 +14,7 @@ public final class FlightGroups {
     private final Airport origin;
     private final NavigableMap< LocalTime, Set<Flight>> flights;
 
-    public FlightGroups(Airport origin, NavigableMap<LocalTime, Set<Flight>> flights) {
+    private FlightGroups(Airport origin, NavigableMap<LocalTime, Set<Flight>> flights) {
         this.origin = origin;
         this.flights = flights;
     }
