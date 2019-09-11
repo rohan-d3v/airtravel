@@ -24,10 +24,6 @@ SimpleFlight SF = SimpleFlight.of(FlightCode, l, FS);
 
     }
 
-    @Test
-    public void of() {
-
-    }
 
 
     @Test
