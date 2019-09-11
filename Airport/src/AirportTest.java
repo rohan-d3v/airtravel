@@ -19,14 +19,6 @@ public class AirportTest {
     }
 
     @Test
-    public void getCode() {
-    }
-
-    @Test
-    public void getConnectionTimeMin() {
-    }
-
-    @Test
     public void compareTo() {
     }
 }
