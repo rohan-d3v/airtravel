@@ -26,6 +26,7 @@ public  final class Airport implements Comparable<Airport> {
         return new Airport(code, connectionTimeMin);
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if((obj == null) || !(obj instanceof Airport))

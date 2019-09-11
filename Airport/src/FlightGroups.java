@@ -1,7 +1,7 @@
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.NavigableMap;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
@@ -12,13 +12,12 @@ import java.util.HashSet;
 public final class FlightGroups {
 
     private final Airport origin;
-    private final NavigableMap<LocalTime, Set<Flight>> flights;
+    private final NavigableMap< LocalTime, Set<Flight>> flights;
 
     public FlightGroups(Airport origin, NavigableMap<LocalTime, Set<Flight>> flights) {
         this.origin = origin;
         this.flights = flights;
     }
-
 
     public final boolean add(Flight flight){
         if(flights.containsValue(flight)) {
