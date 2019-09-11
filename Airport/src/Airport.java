@@ -16,10 +16,8 @@ public  final class Airport implements Comparable<Airport> {
         connectionTimeMin = new_connectionTimeMin;
     }
 
-    public static final Airport of(String code, Duration connectionTimeMin)
-    {
-        if(code == null || connectionTimeMin == null)
-        {
+    public static final Airport of(String code, Duration connectionTimeMin) {
+        if(code == null || connectionTimeMin == null) {
             throw new NullPointerException("Airport must have a code and a minimum connection time");
         }
 

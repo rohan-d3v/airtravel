@@ -16,18 +16,23 @@ SimpleFlight SF = SimpleFlight.of(FlightCode, l, FS);
 
     @org.junit.Test
     public void add() {
-
+        FlightGroups flights = FlightGroups.of(start);
+        assert(flights.add(SF));
+        assert(!flights.add(SF));
     }
 
     @org.junit.Test
     public void remove() {
-
+        FlightGroups flights = FlightGroups.of(start);
+        assert(flights.add(SF));
+        assert(flights.remove(SF));
+        assert(!flights.remove(SF));
     }
-
-
 
     @Test
     public void flightsAtOrAfter() {
-
+        FlightGroups flights = FlightGroups.of(start);
+        assert(flights.add(SF));
+        assert(flights.flightsAtOrAfter(SF.departureTime()).contains(SF));
     }
 }

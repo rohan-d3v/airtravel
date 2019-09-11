@@ -55,8 +55,7 @@ public final class FlightGroups {
     public final Set<Flight> flightsAtOrAfter(LocalTime departureTime){
         SortedMap<LocalTime, Set<Flight>> atOrAfter = flights.tailMap(departureTime);
         Set<Flight> result = new HashSet<Flight>();
-        for(Set<Flight> flightsList : atOrAfter.values())
-        {
+        for(Set<Flight> flightsList : atOrAfter.values()) {
             result.addAll(flightsList);
         }
         return result;
