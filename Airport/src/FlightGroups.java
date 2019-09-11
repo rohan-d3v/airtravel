@@ -1,9 +1,5 @@
 import java.time.LocalTime;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.SortedMap;
+import java.util.*;
 
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
@@ -42,7 +38,6 @@ public final class FlightGroups {
         if(flights.containsKey(flight.getFlightSchedule().departureTime())) {
             Set tempFlights = flights.get(flight.getFlightSchedule().departureTime());
             return tempFlights.add(flight);
-            //flights.put(flight.getFlightSchedule().departureTime(), tempFlights);
         }
         flights.put(flight.getFlightSchedule().departureTime(), new HashSet<Flight>(java.util.Arrays.asList(flight)));
         return true;
@@ -59,7 +54,8 @@ public final class FlightGroups {
     public final Set<Flight> flightsAtOrAfter(LocalTime departureTime){
         SortedMap<LocalTime, Set<Flight>> atOrAfter = flights.tailMap(departureTime);
         Set<Flight> result = new HashSet<Flight>();
-        for(Set<Flight> flightsList : atOrAfter.values()) {
+        for(Set<Flight> flightsList : atOrAfter.values())
+        {
             result.addAll(flightsList);
         }
         return result;
