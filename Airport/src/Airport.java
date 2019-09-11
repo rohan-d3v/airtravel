@@ -16,6 +16,14 @@ public final class Airport implements Comparable<Airport> {
         connectionTimeMin = new_connectionTimeMin;
     }
 
+    /**
+     * Builder method since the Constructor is private
+     * Checks if the values are valid before accessing the constructor
+     * Returns new instance of Airport
+     * @param code Airport Code
+     * @param connectionTimeMin Minimum Connection rime required
+     * @return Airport Object
+     */
     public static final Airport of(String code, Duration connectionTimeMin) {
         if(code == null || connectionTimeMin == null) {
             throw new NullPointerException("Airport must have a code and a minimum connection time");
@@ -25,6 +33,12 @@ public final class Airport implements Comparable<Airport> {
     }
 
 
+    /**
+     * Checks if the Object is actually a valid type airport
+     * Makes sure it's not null and is an instance of airport
+     * @param obj Any time object (technically) but preferably airport
+     * @return boolean whether the method is actually valid
+     */
     @Override
     public boolean equals(Object obj) {
         if((obj == null) || !(obj instanceof Airport))

@@ -2,19 +2,19 @@ import org.junit.Test;
 
 import java.time.Duration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class AirportTest {
 
-
+   Object nullObj = null;
+   Object random = "Random";
    Airport location1 = Airport.of("NYC", Duration.ofHours(10));
    Airport location2 = Airport.of("LHR", Duration.ofHours(13));
 
     @Test
     public void testEquals() {
-        assertEquals(null, false);
-        assertEquals("random object", false);
+        assertFalse(location1.equals(nullObj));
+        assertFalse(location2.equals(random));
         assertEquals(location1.getCode(), "NYC");
         assertEquals(location2.getCode(), "LHR");
     }
