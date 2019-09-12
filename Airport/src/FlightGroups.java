@@ -31,6 +31,11 @@ public final class FlightGroups {
         return origin;
     }
 
+    /**
+     * Add Flight to the groups of flight, cj
+     * @param flight
+     * @return
+     */
     public final boolean add(Flight flight){
         if(flights.containsValue(flight)) {
             throw new IllegalArgumentException("Flight already in flight group!");

@@ -47,11 +47,20 @@ public final class Airport implements Comparable<Airport> {
         return (otherAirport.getCode().equals(code) && otherAirport.getConnectionTimeMin().equals(connectionTimeMin));
     }
 
+    /**
+     * Standard Getter method, returns the string version of the code
+     * Auto generated
+     * @return Airport Code
+     */
     @Override
     public String toString() {
         return code;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return super.hashCode();
