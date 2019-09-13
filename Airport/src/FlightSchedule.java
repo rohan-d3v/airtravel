@@ -19,10 +19,8 @@ public class FlightSchedule {
         duration = Duration.between(departureTime, arrivalTime);
     }
 
-    public static FlightSchedule of(LocalTime m_arrival, LocalTime m_departure)
-    {
-        if(m_arrival == null || m_departure == null)
-        {
+    public static FlightSchedule of(LocalTime m_arrival, LocalTime m_departure) {
+        if(m_arrival == null || m_departure == null) {
             throw new NullPointerException("Departure/arrival time cannot be null");
         }
         return new FlightSchedule(m_arrival, m_departure);
