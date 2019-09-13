@@ -25,7 +25,7 @@ public final class FlightGroups {
     {
         if(origin == null)
         {
-            throw new IllegalArgumentException("Origin airport cannot be null!");
+            throw new NullPointerException("Origin airport cannot be null!");
         }
         return new FlightGroups(origin);
     }
@@ -49,6 +49,10 @@ public final class FlightGroups {
     }
 
     public final boolean remove(Flight flight){
+        if(flight == null)
+        {
+            throw new NullPointerException("Flight cannot be null!");
+        }
         return flights.remove(flight.getFlightSchedule().departureTime()) != null;
     }
 

@@ -4,9 +4,10 @@
  * @project:    2) AirTravel
  * @class:      Leg
  */
-public class Leg {
+public final class Leg {
     private final Airport origin;
     private final Airport destination;
+
     private Leg(Airport m_origin, Airport m_destination)
     {
         origin = m_origin;

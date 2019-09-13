@@ -7,7 +7,7 @@
 import java.time.LocalTime;
 import java.time.Duration;
 
-public class FlightSchedule {
+public final class FlightSchedule {
     private final LocalTime arrivalTime;
     private final LocalTime departureTime;
     private final Duration duration;
@@ -26,8 +26,10 @@ public class FlightSchedule {
         return new FlightSchedule(m_arrival, m_departure);
     }
 
-    public boolean isShort(Duration durationMax)
-    {
+    public boolean isShort(Duration durationMax) {
+        if(durationMax == null) {
+            throw new NullPointerException("Duration cannot be null");
+        }
         return durationMax.compareTo(duration) <= 0;
     }
 
