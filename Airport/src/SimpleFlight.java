@@ -12,11 +12,13 @@ public final class SimpleFlight extends AbstractFlight{
     private final String code;
     private final Leg leg;
     private final FlightSchedule flightSchedule;
+    private final SeatConfiguration seatsAvailable;
 
-    private SimpleFlight(String code, Leg leg, FlightSchedule flightSchedule) {
+    private SimpleFlight(String code, Leg leg, FlightSchedule flightSchedule, SeatConfiguration seatsAvailable) {
         this.code = code;
         this.leg = leg;
         this.flightSchedule = flightSchedule;
+        this.seatsAvailable = seatsAvailable;
         origin().addFlight(this);
     }
 
@@ -28,12 +30,13 @@ public final class SimpleFlight extends AbstractFlight{
      * @param flightSchedule
      * @return Object type simple Flight
      */
-    public static final SimpleFlight of(String code, Leg leg, FlightSchedule flightSchedule) {
+    public static final SimpleFlight of(String code, Leg leg, FlightSchedule flightSchedule, SeatConfiguration seatsAvailable) {
         Objects.requireNonNull(code, "Cannot initialize SimpleFlight without a code");
         Objects.requireNonNull(leg, "Cannot initialize SimpleFlight without a leg");
         Objects.requireNonNull(flightSchedule, "Cannot initialize SimpleFlight without a flight schedule");
+        Objects.requireNonNull(seatsAvailable, "Cannot initialize SimpleFlight without a seat configuration");
 
-        return new SimpleFlight(code, leg, flightSchedule);
+        return new SimpleFlight(code, leg, flightSchedule, seatsAvailable);
     }
 
     /**
