@@ -49,10 +49,16 @@ public final class FlightGroups {
      * @return boolean if in set
      */
     public final boolean add(Flight flight){
+        if(!flight.origin().getCode().equals(origin.getCode())) {
+            throw new IllegalArgumentException("Airport to be added must have same origin airport as flight group");
+        }
+
         if(flights.containsValue(flight)) {
             return false;
         }
-        if(flights.containsKey(flight.getFlightSchedule().departureTime())) {//Checks if Flights has the correct details then adds to temp set
+
+        //Checks if Flights has the correct details then adds to temp set
+        if(flights.containsKey(flight.getFlightSchedule().departureTime())) {
             Set tempFlights = flights.get(flight.getFlightSchedule().departureTime());
             return tempFlights.add(flight);
         }
@@ -68,7 +74,10 @@ public final class FlightGroups {
      */
     public final boolean remove(Flight flight){
         Objects.requireNonNull(flight, "Flight cannot be null!");
-        return flights.remove(flight.getFlightSchedule().departureTime()) != null;
+        if(flights.get(flight.getFlightSchedule().departureTime()) != null) {
+            return flights.get(flight.getFlightSchedule().departureTime()).remove(flight);
+        }
+        return false;
     }
 
     /**
@@ -78,6 +87,7 @@ public final class FlightGroups {
      * @return flights at or after departure time
      */
     public final Set<Flight> flightsAtOrAfter(LocalTime departureTime){
+        Objects.requireNonNull(departureTime, "Departure time cannot be null");
         SortedMap<LocalTime, Set<Flight>> atOrAfter = flights.tailMap(departureTime);
         Set<Flight> result = new HashSet<Flight>();
         for(Set<Flight> flightsList : atOrAfter.values()) {

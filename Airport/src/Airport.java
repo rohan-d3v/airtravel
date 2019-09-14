@@ -12,10 +12,12 @@ public final class Airport implements Comparable<Airport> {
 
     private final String code;
     private final Duration connectionTimeMin;
+    private final FlightGroups outFlights;
 
     private Airport(String new_code, Duration new_connectionTimeMin) {
         code = new_code;
         connectionTimeMin = new_connectionTimeMin;
+        outFlights = FlightGroups.of(this);
     }
 
     /**
@@ -95,6 +97,14 @@ public final class Airport implements Comparable<Airport> {
     @Override
     public int compareTo(Airport airport) {
         return code.compareTo(airport.getCode());
+    }
+
+    public final boolean addFlight(Flight flight) {
+        return outFlights.add(flight);
+    }
+
+    public final boolean removeFlight(Flight flight) {
+        return outFlights.remove(flight);
     }
 }
 
