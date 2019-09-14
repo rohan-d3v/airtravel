@@ -4,7 +4,9 @@
  * @project:    2) AirTravel
  * @class:      Airport
  */
+
 import java.time.Duration;
+import java.util.Objects;
 
 public final class Airport implements Comparable<Airport> {
 
@@ -25,9 +27,8 @@ public final class Airport implements Comparable<Airport> {
      * @return Airport Object
      */
     public static final Airport of(String code, Duration connectionTimeMin) {
-        if(code == null || connectionTimeMin == null) {
-            throw new NullPointerException("Airport must have a code and a minimum connection time");
-        }
+        Objects.requireNonNull(code, "Airport must have a valid code");
+        Objects.requireNonNull(connectionTimeMin, "Airport must have a minimum connection time");
 
         return new Airport(code, connectionTimeMin);
     }
@@ -41,7 +42,8 @@ public final class Airport implements Comparable<Airport> {
      */
     @Override
     public boolean equals(Object obj) {
-        if((obj == null) || !(obj instanceof Airport))
+        Objects.requireNonNull(obj);
+        if(!(obj instanceof Airport))
             return false;
         Airport otherAirport = (Airport) obj;
         return (otherAirport.getCode().equals(code) && otherAirport.getConnectionTimeMin().equals(connectionTimeMin));
@@ -58,23 +60,38 @@ public final class Airport implements Comparable<Airport> {
     }
 
     /**
-     *
-     * @return
+     * Standard hash method, returns the string version of the code
+     * Auto generated
+     * @return hashCode
      */
     @Override
     public int hashCode() {
         return super.hashCode();
     }
 
-
+    /**
+     * Standard Getter method, returns the string version of the code
+     * Auto generated
+     * @return Airline Code
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Standard Getter method, returns the string version of the code
+     * Auto generated
+     * @return Connection Time (duration)
+     */
     public Duration getConnectionTimeMin() {
         return connectionTimeMin;
     }
 
+    /**
+     * Standard compare method, returns the string version of the code
+     * Auto generated
+     * @return Airport Code
+     */
     @Override
     public int compareTo(Airport airport) {
         return code.compareTo(airport.getCode());

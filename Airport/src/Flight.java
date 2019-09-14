@@ -4,9 +4,13 @@
  * @project:    2) AirTravel
  * @interface:  Flight
  */
+
 import java.time.LocalTime;
 import java.time.Duration;
 
+/**
+ * Flight Interface
+ */
 public interface Flight {
     String getCode();
     Leg getLeg();

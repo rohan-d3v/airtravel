@@ -1,12 +1,14 @@
-import java.time.LocalTime;
-import java.util.*;
-
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
  * @case-id:    cac226, rxr353
  * @project:    2) AirTravel
  * @class:      FlightGroups
  */
+
+
+import java.time.LocalTime;
+import java.util.*;
+
 public final class FlightGroups {
 
     private final Airport origin;
@@ -17,30 +19,40 @@ public final class FlightGroups {
         this.flights = new TreeMap<LocalTime, Set<Flight>>();
     }
 
-    public static final FlightGroups of(Airport origin)
-    {
-        if(origin == null)
-        {
-            throw new NullPointerException("Origin airport cannot be null!");
-        }
+    /**
+     * Builder method since the Constructor is private
+     * Checks if the value is non null before creating object
+     * @param origin
+     * @return Ariport object
+     */
+    public static final FlightGroups of(Airport origin) {
+        Objects.requireNonNull(origin, "Origin airport can't be null!");
+
         return new FlightGroups(origin);
     }
 
-    public final Airport getOrigin()
-    {
+    /**
+     * Standard Getter method, returns Origin airport code
+     * Auto generated
+     * @return Airport Code
+     */
+    public final Airport getOrigin() {
         return origin;
     }
 
+
     /**
-     * Add Flight to the groups of flight, cj
+     * Checks if FlightGroups contains Flights
+     * Add Flights to temporary set
+     * Puts flight Details in Flight set
      * @param flight
-     * @return
+     * @return boolean if in set
      */
     public final boolean add(Flight flight){
         if(flights.containsValue(flight)) {
-            throw new IllegalArgumentException("Flight already in flight group!");
+            return false;
         }
-        if(flights.containsKey(flight.getFlightSchedule().departureTime())) {
+        if(flights.containsKey(flight.getFlightSchedule().departureTime())) {//Checks if Flights has the correct details then adds to temp set
             Set tempFlights = flights.get(flight.getFlightSchedule().departureTime());
             return tempFlights.add(flight);
         }
@@ -48,19 +60,27 @@ public final class FlightGroups {
         return true;
     }
 
+    /**
+     * Removes Flight from Flights set
+     * Uses FlightSchedule to check Flights before removing
+     * @param flight
+     * @return
+     */
     public final boolean remove(Flight flight){
-        if(flight == null)
-        {
-            throw new NullPointerException("Flight cannot be null!");
-        }
+        Objects.requireNonNull(flight, "Flight cannot be null!");
         return flights.remove(flight.getFlightSchedule().departureTime()) != null;
     }
 
+    /**
+     * Checks if Flight exists at stated departure time
+     * Runs through the whole set checking whether the rest of the flights are at or after departure time
+     * @param departureTime
+     * @return flights at or after departure time
+     */
     public final Set<Flight> flightsAtOrAfter(LocalTime departureTime){
         SortedMap<LocalTime, Set<Flight>> atOrAfter = flights.tailMap(departureTime);
         Set<Flight> result = new HashSet<Flight>();
-        for(Set<Flight> flightsList : atOrAfter.values())
-        {
+        for(Set<Flight> flightsList : atOrAfter.values()) {
             result.addAll(flightsList);
         }
         return result;
