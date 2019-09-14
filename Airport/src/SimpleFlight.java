@@ -65,6 +65,4 @@ public final class SimpleFlight extends AbstractFlight{
     public FlightSchedule getFlightSchedule() {
         return flightSchedule;
     }
-
-
 }

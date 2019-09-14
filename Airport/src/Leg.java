@@ -38,8 +38,7 @@ public final class Leg {
      * Auto Generated
      * @return Destination Airport
      */
-    public Airport destination()
-    {
+    public Airport destination() {
         return destination;
     }
 }

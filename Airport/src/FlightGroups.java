@@ -49,6 +49,7 @@ public final class FlightGroups {
      * @return boolean if in set
      */
     public final boolean add(Flight flight){
+        Objects.requireNonNull(flight, "Flight to be added cannot be null!");
         if(!flight.origin().getCode().equals(origin.getCode())) {
             throw new IllegalArgumentException("Airport to be added must have same origin airport as flight group");
         }
