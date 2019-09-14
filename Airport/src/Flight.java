@@ -5,8 +5,8 @@
  * @interface:  Flight
  */
 
-import java.time.LocalTime;
 import java.time.Duration;
+import java.time.LocalTime;
 
 /**
  * Flight Interface
@@ -20,4 +20,6 @@ public interface Flight {
     LocalTime departureTime();
     LocalTime arrivalTime();
     boolean isShort(Duration durationMax);
+    //SeatConfiguration seatsAvailable(FareClass fareClass);
+    //boolean hasSeats(FareClass fareClass);
 }

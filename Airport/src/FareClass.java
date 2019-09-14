@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
  * @case-id:    cac226, rxr353
@@ -7,6 +5,7 @@ import java.util.Objects;
  * @class:      FareClass
  */
 
+import java.util.Objects;
 
 public final class FareClass {
 
@@ -19,8 +18,8 @@ public final class FareClass {
     }
 
     public static final FareClass of(int identifier, SeatClass seatClass){
-        Objects.requireNonNull(identifier);
-        Objects.requireNonNull(seatClass);
+        Objects.requireNonNull(identifier, "Identifier needs to be non null");
+        Objects.requireNonNull(seatClass, "SeatClass needs to exist");
 
         return new FareClass (identifier, seatClass);
     }
