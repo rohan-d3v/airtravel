@@ -99,10 +99,20 @@ public final class Airport implements Comparable<Airport> {
         return code.compareTo(airport.getCode());
     }
 
+    /**
+     * Create Flights and add to the airport departures
+     * @param flight
+     * @return
+     */
     public final boolean addFlight(Flight flight) {
         return outFlights.add(flight);
     }
 
+    /**
+     * Removes flights from departures
+     * @param flight
+     * @return
+     */
     public final boolean removeFlight(Flight flight) {
         return outFlights.remove(flight);
     }
