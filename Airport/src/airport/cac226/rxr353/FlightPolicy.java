@@ -7,10 +7,11 @@ package airport.cac226.rxr353;
  * @class:      SimpleFlight
  */
 
+
 import java.util.Objects;
 import java.util.function.BiFunction;
 
-public final class FlightPolicy extends AbstractFlight{
+public final class FlightPolicy extends AbstractFlight {
 
     private final Flight flight;
     private final BiFunction<SeatConfiguration, FareClass, SeatConfiguration> policy;

@@ -4,19 +4,16 @@ import org.junit.Test;
 
 public class FlightScheduleTest {
 
+
     @Test
-    public void of() {
+    public void testIsShort() {
     }
 
     @Test
-    public void isShort() {
+    public void testDepartureTime() {
     }
 
     @Test
-    public void departureTime() {
-    }
-
-    @Test
-    public void arrivalTime() {
+    public void testArrivalTime() {
     }
 }

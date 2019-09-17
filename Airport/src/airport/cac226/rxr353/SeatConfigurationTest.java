@@ -2,10 +2,14 @@ package airport.cac226.rxr353;
 
 import org.junit.Test;
 
-public class AbstractFlightTest {
+public class SeatConfigurationTest {
 
     @Test
-    public void isShort() {
+    public void seats() {
+    }
+
+    @Test
+    public void setSeats() {
     }
 
     @Test

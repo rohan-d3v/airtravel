@@ -53,8 +53,13 @@ public abstract class AbstractFlight implements Flight {
         return getFlightSchedule().isShort(durationMax);
     }
 
+    /**
+     * Checks if the Flight has any available seats
+     * @param fareclass
+     * @return If seats are available
+     */
     public final boolean hasSeats(FareClass fareclass) {
-        Objects.requireNonNull(fareclass, "fareclass to check seats must not be null");
+        Objects.requireNonNull(fareclass, "Fare class to check seats must not be null");
         return (seatsAvailable(fareclass).seats(fareclass.getSeatClass()) > 0);
     }
 }
