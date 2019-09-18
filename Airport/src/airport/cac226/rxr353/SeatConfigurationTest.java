@@ -6,8 +6,7 @@ import java.util.EnumMap;
 
 import static airport.cac226.rxr353.SeatClass.BUSINESS;
 import static airport.cac226.rxr353.SeatClass.ECONOMY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class SeatConfigurationTest {
 
@@ -33,5 +32,6 @@ public class SeatConfigurationTest {
 
     @Test
     public void hasSeats() {
+        assertTrue(testSeatConfig.hasSeats());
     }
 }
