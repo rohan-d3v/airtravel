@@ -40,9 +40,9 @@ public final class FlightPolicy extends AbstractFlight {
     }
 
     /**
-     *
+     * Returns the seatClass and makes sure passengers are seated in correct class
      * @param flight
-     * @return
+     * @return Flight type to determine class
      */
     public static final Flight strict(Flight flight) {
         Objects.requireNonNull(flight, "Flight cannot be null");
@@ -54,6 +54,13 @@ public final class FlightPolicy extends AbstractFlight {
         return FlightPolicy.of(flight, strictPolicy);
     }
 
+    /**
+     * Makes sure that the Flight returned is specifically of a certain length
+     * Returns the FlightPolicy for the specific flight
+     * @param flight
+     * @param durationMax
+     * @return FlightPolicy
+     */
     public static final Flight restrictedDuration(Flight flight, Duration durationMax) {
         Objects.requireNonNull(flight, "Flight cannot be null");
         Objects.requireNonNull(durationMax, "Restricted Duration flight policy must have a max duration");
@@ -75,6 +82,12 @@ public final class FlightPolicy extends AbstractFlight {
         return FlightPolicy.of(flight, strictPolicy);
     }
 
+    /**
+     * Makes sure that the upgraded seats are not in seats already reserved for other passengers
+     * @param flight
+     * @param reserve
+     * @return FlightPolicy/restrictions
+     */
     public static final Flight reserve(Flight flight, int reserve) {
         Objects.requireNonNull(flight, "Flight cannot be null");
         Objects.requireNonNull(reserve, "Must specify reserve");
@@ -89,6 +102,12 @@ public final class FlightPolicy extends AbstractFlight {
         return FlightPolicy.of(flight, reservePolicy);
     }
 
+    /**
+     * Makes sure that the Flight seat upgrade only goes up one level and then cuts off
+     * @param flight
+     * @param reserve
+     * @return FlightPolicy/restrictions
+     */
     public static final Flight limited(Flight flight, int reserve) {
         Objects.requireNonNull(flight, "Flight cannot be null");
         Objects.requireNonNull(reserve, "Must specify reserve");
