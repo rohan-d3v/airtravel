@@ -18,7 +18,7 @@ public class FlightScheduleTest {
 
     @Test
     public void testIsShort() {
-        assertTrue(FS.isShort(testDuration));
+        assertTrue(FS.isShort(Duration.ZERO));
     }
 
 }

@@ -38,7 +38,7 @@ public final class FareClass {
      * Auto-generated
      * @return identifier
      */
-    public int getIdentifier() {
+    final int getIdentifier() {
         return identifier;
     }
 
@@ -47,7 +47,7 @@ public final class FareClass {
      * Auto-generated
      * @return seat Class
      */
-    public SeatClass getSeatClass() {
+    final SeatClass getSeatClass() {
         return seatClass;
     }
 
