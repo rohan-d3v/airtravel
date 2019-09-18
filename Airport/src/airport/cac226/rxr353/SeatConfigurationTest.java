@@ -21,6 +21,9 @@ public class SeatConfigurationTest {
 
     @Test
     public void seats() {
+        seatEnum.put(BUSINESS, 2);
+        SeatConfiguration initSeatConfig = SeatConfiguration.of(seatEnum);
+        SeatConfiguration testSeatConfig = SeatConfiguration.of(initSeatConfig);
         assertEquals(2, testSeatConfig.seats(BUSINESS));
         assertNotEquals(1, testSeatConfig.seats(BUSINESS));
     }
