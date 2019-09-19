@@ -18,6 +18,13 @@ public final class Leg {
         destination = m_destination;
     }
 
+    /**
+     * Builder method since the Constructor is private
+     * Requires Arrival and Departure time to be non null
+     * @param m_origin
+     * @param m_destination
+     * @return Flight Leg Object
+     */
     public static final Leg of(Airport m_origin, Airport m_destination) {
         Objects.requireNonNull(m_origin, "Airport Origin cannot be null");
         Objects.requireNonNull(m_destination, "Airport Destination cannot be null");
