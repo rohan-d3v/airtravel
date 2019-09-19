@@ -1,3 +1,5 @@
+package airport.cac226.rxr353;
+
 /**
  * @names:      Caitlin Campbell, Rohan Krishna Ramkhumar
  * @case-id:    cac226, rxr353
@@ -57,5 +59,11 @@ public final class FlightPolicy extends AbstractFlight{
     @Override
     public FlightSchedule getFlightSchedule() {
         return flight.getFlightSchedule();
+    }
+
+    public SeatConfiguration seatsAvailable(FareClass fareclass) {
+        Objects.requireNonNull(fareclass, "Fareclass cannot be null");
+        //SeatConfiguration seatConfig = policy.apply()
+        return null;
     }
 }
