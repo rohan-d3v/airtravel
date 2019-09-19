@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.EnumMap;
 
 import static java.time.Duration.ZERO;
 
@@ -14,7 +15,13 @@ Airport start = Airport.of("UCT", ZERO);
 Airport end = Airport.of("LHR", ZERO);
 Leg l = Leg.of(start, end);
 String FlightCode = "BA006";
-SimpleFlight SF = SimpleFlight.of(FlightCode, l, FS);
+EnumMap<SeatClass, Integer> seatEnum = new EnumMap<SeatClass, Integer>(SeatClass.class);
+//SeatClass seatClass = SeatClass.BUSINESS;
+//seatEnum.put(seatClass, 2);
+
+SeatConfiguration seatConfig = SeatConfiguration.of(seatEnum);
+
+SimpleFlight SF = SimpleFlight.of(FlightCode, l, FS, seatConfig);
 
     @org.junit.Test
     public void add() {
