@@ -1,3 +1,5 @@
+package airport.cac226.rxr353;
+
 import org.junit.Test;
 
 import java.time.Duration;
