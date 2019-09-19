@@ -16,6 +16,12 @@ public final class SeatConfiguration {
         this.seats = seats.clone();
     }
 
+    public static SeatConfiguration of(EnumMap<SeatClass, Integer> seats)
+    {
+        Objects.requireNonNull(seats, "Seats enum map cannot be null");
+        return new SeatConfiguration(seats);
+    }
+
     public int seats(SeatClass seatClass) {
         Objects.requireNonNull(seatClass, "Seat class cannot be null");
         if(seats.containsKey(seatClass)) {
