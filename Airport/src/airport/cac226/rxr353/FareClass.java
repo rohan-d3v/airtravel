@@ -19,6 +19,12 @@ public final class FareClass {
         this.seatClass = seatClass;
     }
 
+    /**
+     * Accesses the builder method
+     * @param identifier checks if null
+     * @param seatClass checks if null
+     * @return fareclass object
+     */
     public static final FareClass of(int identifier, SeatClass seatClass){
         Objects.requireNonNull(identifier, "Identifier needs to be non null");
         Objects.requireNonNull(seatClass, "SeatClass needs to exist");
@@ -27,23 +33,44 @@ public final class FareClass {
     }
 
 
+    /**
+     * Standard Getter method
+     * Auto-generated
+     * @return identifier
+     */
     public int getIdentifier() {
         return identifier;
     }
 
+    /**
+     * Standard Getter method
+     * Auto-generated
+     * @return seat Class
+     */
     public SeatClass getSeatClass() {
         return seatClass;
     }
 
+    /**
+     * Checks if the entered fare class is the same as the existing fare class
+     * Creates FareClass object after test
+     * @param o
+     * @return whether the fare class was created
+     */
     @Override
     public boolean equals(Object o) {
+        Objects.requireNonNull(o, "Fare Class cannot be null");
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (getClass() != o.getClass()) return false;
         FareClass fareClass = (FareClass) o;
         return identifier == fareClass.identifier &&
                 seatClass == fareClass.seatClass;
     }
 
+    /**
+     * Auto-generated
+     * @return Has code version of Fare class and seat identifier
+     */
     @Override
     public int hashCode() {
         return Objects.hash(identifier, seatClass);
