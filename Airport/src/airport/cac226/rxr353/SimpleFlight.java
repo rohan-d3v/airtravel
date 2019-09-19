@@ -70,4 +70,9 @@ public final class SimpleFlight extends AbstractFlight{
     public FlightSchedule getFlightSchedule() {
         return flightSchedule;
     }
+
+    public SeatConfiguration seatsAvailable(FareClass fareclass) {
+        Objects.requireNonNull(fareclass, "Please enter a valid fareclass");
+        return seatsAvailable;
+    }
 }

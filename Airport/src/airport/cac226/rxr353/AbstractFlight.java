@@ -9,6 +9,7 @@ package airport.cac226.rxr353;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public abstract class AbstractFlight implements Flight {
     /**
@@ -50,5 +51,10 @@ public abstract class AbstractFlight implements Flight {
      */
     public final boolean isShort(Duration durationMax) {
         return getFlightSchedule().isShort(durationMax);
+    }
+
+    public final boolean hasSeats(FareClass fareclass) {
+        Objects.requireNonNull(fareclass, "fareclass to check seats must not be null");
+        return (seatsAvailable(fareclass).seats(fareclass.getSeatClass()) > 0);
     }
 }

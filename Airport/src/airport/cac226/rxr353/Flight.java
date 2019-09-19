@@ -22,6 +22,6 @@ public interface Flight {
     LocalTime departureTime();
     LocalTime arrivalTime();
     boolean isShort(Duration durationMax);
-    //SeatConfiguration seatsAvailable(FareClass fareClass);
-    //boolean hasSeats(FareClass fareClass);
+    SeatConfiguration seatsAvailable(FareClass fareClass);
+    boolean hasSeats(FareClass fareClass);
 }
