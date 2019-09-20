@@ -7,5 +7,5 @@ package airport.cac226.rxr353;
  * @enum:       SeatClass
  */
 public enum SeatClass {
-    BUSINESS, ECONOMY, PREMIUM_ECONOMY;
+    BUSINESS, PREMIUM_ECONOMY, ECONOMY;
 }
