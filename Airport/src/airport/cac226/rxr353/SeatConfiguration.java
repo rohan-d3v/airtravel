@@ -39,7 +39,6 @@ public final class SeatConfiguration {
     public static SeatConfiguration of(SeatConfiguration seatConfiguration) {
         Objects.requireNonNull(seatConfiguration, "Seats configuration cannot be null");
         EnumMap<SeatClass, Integer> seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
-
         for(SeatClass seatClass : SeatClass.values()) {
             seats.put(seatClass, seatConfiguration.seats(seatClass));
         }
