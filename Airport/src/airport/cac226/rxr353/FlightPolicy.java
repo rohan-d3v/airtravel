@@ -8,12 +8,12 @@ package airport.cac226.rxr353;
  */
 
 
-import java.util.Objects;
-import java.util.function.BiFunction;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Arrays;
-import java.time.Duration;
+import java.util.Objects;
+import java.util.function.BiFunction;
 
 public final class FlightPolicy extends AbstractFlight {
 
@@ -39,6 +39,11 @@ public final class FlightPolicy extends AbstractFlight {
         return new FlightPolicy(flight, policy);
     }
 
+    /**
+     *
+     * @param flight
+     * @return
+     */
     public static final Flight strict(Flight flight) {
         Objects.requireNonNull(flight, "Flight cannot be null");
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> strictPolicy = (sc, fc) -> {
@@ -179,6 +184,11 @@ public final class FlightPolicy extends AbstractFlight {
         return flight.getFlightSchedule();
     }
 
+    /**
+     * Returns available seats
+     * @param fareclass
+     * @return
+     */
     public SeatConfiguration seatsAvailable(FareClass fareclass) {
         Objects.requireNonNull(fareclass, "Fareclass cannot be null");
         return policy.apply(flight.seatsAvailable(fareclass), fareclass);

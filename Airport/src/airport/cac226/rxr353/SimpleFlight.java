@@ -71,7 +71,13 @@ public final class SimpleFlight extends AbstractFlight{
         return flightSchedule;
     }
 
-    public SeatConfiguration seatsAvailable(FareClass fareclass) {
+    /**
+     * Cannot make private because of pre existing method clash from flight interface
+     * Has been initialized in build and of methods
+     * @param fareclass
+     * @return Object type seat Configuration
+     */
+    public final SeatConfiguration seatsAvailable(FareClass fareclass) {
         Objects.requireNonNull(fareclass, "Please enter a valid fareclass");
         return seatsAvailable;
     }

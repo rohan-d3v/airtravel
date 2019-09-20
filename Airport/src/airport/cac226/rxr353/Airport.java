@@ -65,6 +65,7 @@ public final class Airport implements Comparable<Airport> {
 
     /**
      * Standard hash method, returns the string version of the code
+     * Auto generated
      * @return hashCode
      */
     @Override
