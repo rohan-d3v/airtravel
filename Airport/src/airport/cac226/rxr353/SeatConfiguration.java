@@ -24,6 +24,16 @@ public final class SeatConfiguration {
         return new SeatConfiguration(seats);
     }
 
+    public static SeatConfiguration of(SeatConfiguration seatConfiguration) {
+        Objects.requireNonNull(seatConfiguration, "Seats configuration cannot be null");
+        EnumMap<SeatClass, Integer> seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
+
+        for(SeatClass seatClass : SeatClass.values()) {
+            seats.put(seatClass, seatConfiguration.seats(seatClass));
+        }
+        return new SeatConfiguration(seats);
+    }
+
     public int seats(SeatClass seatClass) {
         Objects.requireNonNull(seatClass, "Seat class cannot be null");
         if(seats.containsKey(seatClass)) {
