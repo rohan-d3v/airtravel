@@ -50,7 +50,7 @@ public final class Airport implements Comparable<Airport> {
         if(!(obj instanceof Airport))
             return false;
         Airport otherAirport = (Airport) obj;
-        return (otherAirport.getCode().equals(code) && otherAirport.getConnectionTimeMin().equals(connectionTimeMin));
+        return otherAirport.getCode().equals(code);
     }
 
     /**
@@ -65,12 +65,11 @@ public final class Airport implements Comparable<Airport> {
 
     /**
      * Standard hash method, returns the string version of the code
-     * Auto generated
      * @return hashCode
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return code.hashCode();
     }
 
     /**
