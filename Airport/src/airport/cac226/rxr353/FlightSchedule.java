@@ -47,7 +47,7 @@ public final class FlightSchedule {
     public boolean isShort(Duration durationMax) {
         Objects.requireNonNull(durationMax, "Duration cannot be null");
 
-        return durationMax.compareTo(duration) >= 0;
+        return durationMax.compareTo(duration) > 0;
     }
 
     /**

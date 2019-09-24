@@ -30,6 +30,10 @@ public class SeatConfigurationTest {
 
     @Test
     public void setSeats() {
+
+        seatEnum.put(ECONOMY, 15);
+        SeatConfiguration initSeatConfig = SeatConfiguration.of(seatEnum);
+        SeatConfiguration testSeatConfig = SeatConfiguration.of(initSeatConfig);
         assertEquals( 15, testSeatConfig.setSeats(ECONOMY, 15));
     }
 

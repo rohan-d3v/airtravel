@@ -98,6 +98,7 @@ public final class Airport implements Comparable<Airport> {
      */
     @Override
     public int compareTo(Airport airport) {
+        Objects.requireNonNull(airport, "Airport to compare cannot be null");
         return code.compareTo(airport.getCode());
     }
 

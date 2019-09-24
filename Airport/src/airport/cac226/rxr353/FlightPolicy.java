@@ -36,7 +36,18 @@ public final class FlightPolicy extends AbstractFlight {
         Objects.requireNonNull(flight, "Flight cannot be empty");
         Objects.requireNonNull(policy, "Need a non null Flight Policy");
 
-        return new FlightPolicy(flight, policy);
+        FlightPolicy result = new FlightPolicy(flight, policy);
+        result.getLeg().origin().removeFlight(flight);
+        result.getLeg().origin().addFlight(result);
+        return result;
+    }
+
+    private static final EnumMap<SeatClass, Integer> seatConfigurationFilled(int seatsAvailable) {
+        EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
+        for(SeatClass seatClass : SeatClass.values()) {
+            seats.put(seatClass, seatsAvailable);
+        }
+        return seats;
     }
 
     /**
@@ -47,7 +58,7 @@ public final class FlightPolicy extends AbstractFlight {
     public static final Flight strict(Flight flight) {
         Objects.requireNonNull(flight, "Flight cannot be null");
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> strictPolicy = (sc, fc) -> {
-            EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
+            EnumMap seats = seatConfigurationFilled(0);
             seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
             return SeatConfiguration.of(seats);
         };
@@ -65,21 +76,11 @@ public final class FlightPolicy extends AbstractFlight {
         Objects.requireNonNull(flight, "Flight cannot be null");
         Objects.requireNonNull(durationMax, "Restricted Duration flight policy must have a max duration");
 
-        BiFunction<SeatConfiguration, FareClass, SeatConfiguration> strictPolicy = (sc, fc) -> {
-            EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
-            if(flight.isShort(durationMax)) {
-                //implement a strict policy
-                seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
-            } else {
-                // clone the existing seat configuration
-                for(SeatClass seatClass : SeatClass.values()) {
-                    seats.put(seatClass, sc.seats(seatClass));
-                }
-            }
-
-            return SeatConfiguration.of(seats);
-        };
-        return FlightPolicy.of(flight, strictPolicy);
+        if(flight.isShort(durationMax)) {
+            return strict(flight);
+        } else {
+            return flight;
+        }
     }
 
     /**
@@ -96,7 +97,7 @@ public final class FlightPolicy extends AbstractFlight {
             EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
             for(SeatClass seatClass : SeatClass.values()) {
                 seats.put(seatClass, Math.max(sc.seats(seatClass) - reserve, 0));
-            } // TODO: CHANGE THIS TO A STREAM
+            }
             return SeatConfiguration.of(seats);
         };
         return FlightPolicy.of(flight, reservePolicy);
@@ -105,24 +106,20 @@ public final class FlightPolicy extends AbstractFlight {
     /**
      * Makes sure that the Flight seat upgrade only goes up one level and then cuts off
      * @param flight
-     * @param reserve
      * @return FlightPolicy/restrictions
      */
-    public static final Flight limited(Flight flight, int reserve) {
+    public static final Flight limited(Flight flight) {
         Objects.requireNonNull(flight, "Flight cannot be null");
-        Objects.requireNonNull(reserve, "Must specify reserve");
 
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> limitedPolicy = (sc, fc) -> {
             EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
-            List<SeatClass> seatClassArray = Arrays.asList(SeatClass.values());
-            for(int i = 0; i < seatClassArray.size(); i++) {
-                SeatClass tempSeatClass = seatClassArray.get(i);
-                if(i < seatClassArray.size() - 1)
+            for(SeatClass seatClass : SeatClass.values()) {
+                if(seatClass.ordinal() > 0)
                 {
-                    SeatClass nextSeatClass = seatClassArray.get(i + 1);
-                    seats.put(tempSeatClass, sc.seats(tempSeatClass) + sc.seats(nextSeatClass));
+                    SeatClass nextSeatClass = SeatClass.values()[seatClass.ordinal() - 1];
+                    seats.put(seatClass, sc.seats(seatClass) + sc.seats(nextSeatClass));
                 } else {
-                    seats.put(tempSeatClass, sc.seats(tempSeatClass));
+                    seats.put(seatClass, sc.seats(seatClass));
                 }
             }
             return SeatConfiguration.of(seats);
@@ -135,18 +132,21 @@ public final class FlightPolicy extends AbstractFlight {
      *
      * Implements a flight policy that gives seats available depending on the identifier
      * Used for the fare class. If the FareClass identifier is greater than or equal to the
-     * fareCutOff, then all seats are available
+     * fareCutOff, then all seats are available. Otherwise, a strict policy is implemented
      * */
     public static final Flight pricePolicy(Flight flight, int fareCutOff) {
         Objects.requireNonNull(flight, "Flight cannot be null");
 
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> pricePolicy = (sc, fc) -> {
-            EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
+            EnumMap seats;
             if(fareCutOff <= fc.getIdentifier()) {
+                int available = 0;
                 for(SeatClass seatClass : SeatClass.values()) {
-                    seats.put(seatClass, sc.seats(seatClass));
+                    available += sc.seats(seatClass);
                 }
+                seats = seatConfigurationFilled(0);
             } else {
+                seats = seatConfigurationFilled(0);
                 seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
             }
             return SeatConfiguration.of(seats);

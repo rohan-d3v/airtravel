@@ -77,7 +77,7 @@ public final class FlightGroups {
      */
     public final boolean remove(Flight flight){
         Objects.requireNonNull(flight, "Flight cannot be null!");
-        if(flights.get(flight.getFlightSchedule().departureTime()) != null) {
+        if(origin.equals(flight.origin()) && flights.get(flight.getFlightSchedule().departureTime()) != null) {
             return flights.get(flight.getFlightSchedule().departureTime()).remove(flight);
         }
         return false;

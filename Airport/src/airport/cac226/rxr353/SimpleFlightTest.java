@@ -15,6 +15,7 @@ public class SimpleFlightTest {
 
     @Test
     public void seatsAvailable() {
+        //set up things
         EnumMap<SeatClass, Integer> seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
         int seatCounter = 4;
         for(SeatClass seatClass : SeatClass.values()) {

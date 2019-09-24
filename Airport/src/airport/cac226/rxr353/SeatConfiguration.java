@@ -53,7 +53,7 @@ public final class SeatConfiguration {
     public int seats(SeatClass seatClass) {
         Objects.requireNonNull(seatClass, "Seat class cannot be null");
         if(seats.containsKey(seatClass)) {
-            return seats.get(seatClass);
+            return Math.max(0, seats.get(seatClass));
         }
         return 0;
     }
@@ -66,9 +66,7 @@ public final class SeatConfiguration {
      */
     public int setSeats(SeatClass seatClass, int seats) {
         Objects.requireNonNull(seatClass, "Seat Class cannot be null");
-        int initialSeatsAvailable = seats(seatClass);
-        this.seats.put(seatClass, seats);
-        return initialSeatsAvailable;
+        return this.seats.put(seatClass, Math.max(0, seats));
     }
 
     /**

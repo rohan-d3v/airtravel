@@ -20,8 +20,8 @@ public final class SimpleFlight extends AbstractFlight{
         this.code = code;
         this.leg = leg;
         this.flightSchedule = flightSchedule;
-        this.seatsAvailable = seatsAvailable;
-        origin().addFlight(this);
+        this.seatsAvailable = SeatConfiguration.of(seatsAvailable);
+        this.leg.origin().addFlight(this);
     }
 
     /**
