@@ -27,7 +27,11 @@ public final class RouteTime implements Comparable<RouteTime>{
     }
 
     public RouteTime plus(Duration duration){
-        return UNKNOWN();
+        if (duration.isZero())
+             return UNKNOWN();
+
+        else
+            return new RouteTime(routeTime.plus(duration));
     }
 
     @Override
