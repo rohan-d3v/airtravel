@@ -19,6 +19,7 @@ public final class Airport implements Comparable<Airport> {
     private final FlightGroups outFlights;
 
     public Set<Flight> availableFlights(LocalTime departureTime, FareClass fareClass) {
+        // Caitlin
         return null;
     }
 
