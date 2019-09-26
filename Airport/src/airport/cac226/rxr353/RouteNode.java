@@ -17,22 +17,22 @@ public final class RouteNode implements Comparable<RouteNode>{
         this.previous = previous;
     }
 
-    public static final RouteNode of(Airport airport, RouteTime routeTime, RouteNode previous){
+    public static final RouteNode of(Airport airport, RouteTime routeArrivalTime, RouteNode previous){
         Objects.requireNonNull(airport);
-        Objects.requireNonNull(routeTime);
-        Objects.requireNonNull(previous);
+        Objects.requireNonNull(routeArrivalTime);
+        //Objects.requireNonNull(previous); previous can be null
 
-        return new RouteNode(airport, routeTime, previous);
+        return new RouteNode(airport, routeArrivalTime, previous);
     }
 
     public static final RouteNode of(Flight flight, RouteNode previous){
         Objects.requireNonNull(flight.destination());
-        Objects.requireNonNull(previous);
+        //Objects.requireNonNull(previous); previous can be null
 
         return new RouteNode(flight.destination(), null, previous);
     }
 
-    public static final RouteNode of(Airport airport, LocalTime departureTime, FareClass fareClass){
+    public static final RouteNode of(Airport airport){
         Objects.requireNonNull(airport);
 
         return new RouteNode(airport, null, null);
@@ -52,5 +52,33 @@ public final class RouteNode implements Comparable<RouteNode>{
     @Override
     public int compareTo(@NotNull RouteNode o) {
         return 0;
+    }
+
+
+    /**
+     * Standard Getter method, returns the Airport associated with this node
+     * Auto generated
+     * @return Airport
+     */
+    public Airport getAirport() {
+        return airport;
+    }
+
+    /**
+     * Standard Getter method, returns the arrival time
+     * Auto generated
+     * @return arrival time
+     */
+    public RouteTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    /**
+     * Standard Getter method, returns the previous RouteNode
+     * Auto generated
+     * @return previous RouteNode
+     */
+    public RouteNode getPrevious() {
+        return previous;
     }
 }
