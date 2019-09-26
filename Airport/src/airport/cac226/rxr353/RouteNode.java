@@ -11,7 +11,7 @@ public final class RouteNode implements Comparable<RouteNode>{
     private final RouteTime arrivalTime;
     private final RouteNode previous;
 
-    private RouteNode(Airport airport, RouteTime arrivalTime, RouteNode previous) {
+    RouteNode(Airport airport, RouteTime arrivalTime, RouteNode previous) {
         this.airport = airport;
         this.arrivalTime = arrivalTime;
         this.previous = previous;

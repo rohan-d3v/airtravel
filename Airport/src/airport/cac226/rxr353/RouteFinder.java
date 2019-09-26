@@ -20,7 +20,6 @@ public final class RouteFinder {
     }
     
     public final RouteNode route(Airport origin, Airport destination, LocalTime departureTime, FareClass fareClass){
-        new RouteNode()
         return RouteNode.of(origin, departureTime, fareClass);
     }
 }
