@@ -8,13 +8,19 @@ package airport.cac226.rxr353;
  */
 
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Set;
 
 public final class Airport implements Comparable<Airport> {
 
     private final String code;
     private final Duration connectionTimeMin;
     private final FlightGroups outFlights;
+
+    public Set<Flight> availableFlights(LocalTime departureTime, FareClass fareClass) {
+        return null;
+    }
 
     private Airport(String new_code, Duration new_connectionTimeMin) {
         code = new_code;
