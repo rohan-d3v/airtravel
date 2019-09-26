@@ -14,8 +14,9 @@ public final class RouteState {
 
 
     private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
-
     }
 
+    void replaceNode (RouteNode routeNode){
 
+    }
 }
