@@ -1,7 +1,9 @@
 package airport.cac226.rxr353;
 
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.NavigableSet;
+import java.util.Set;
 
 public final class RouteState {
 
@@ -10,8 +12,9 @@ public final class RouteState {
     private final NavigableSet<RouteNode> unreached;
 
 
-    private RouteState(Map<Airport, RouteNode> airportNode, NavigableSet<RouteNode> unreached) {
-        this.airportNode = airportNode;
-        this.unreached = unreached;
+    private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
+
     }
+
+
 }
