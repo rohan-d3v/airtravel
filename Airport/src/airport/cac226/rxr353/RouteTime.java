@@ -18,7 +18,11 @@ public final class RouteTime implements Comparable<RouteTime>{
         return null;
     }
 
-    public boolean isKnown(){ return false;}
+    public boolean isKnown(){
+        if (routeTime == null)
+            return false;
+        return true;
+    }
 
     public LocalTime getTime(){
         if (Objects.equals(UNKNOWN(), false))

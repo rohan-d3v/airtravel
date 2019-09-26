@@ -11,7 +11,7 @@ public final class RouteNode implements Comparable<RouteNode>{
     private final RouteTime arrivalTime;
     private final RouteNode previous;
 
-    RouteNode(Airport airport, RouteTime arrivalTime, RouteNode previous) {
+    private RouteNode(Airport airport, RouteTime arrivalTime, RouteNode previous) {
         this.airport = airport;
         this.arrivalTime = arrivalTime;
         this.previous = previous;
@@ -39,15 +39,15 @@ public final class RouteNode implements Comparable<RouteNode>{
     }
 
     public final Boolean isArrivalTimeKnow(){
-        return false;
+        if(arrivalTime == null)
+            return false;
+        return true;
     }
 
     public final RouteTime departureTime(){
         LocalTime departureTime = arrivalTime.getTime().plus(airport.getConnectionTimeMin());
         return new RouteTime(departureTime);
     }
-
-
 
     @Override
     public int compareTo(@NotNull RouteNode o) {
