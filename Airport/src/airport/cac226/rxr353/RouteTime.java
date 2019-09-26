@@ -1,10 +1,12 @@
 package airport.cac226.rxr353;
 
 import org.jetbrains.annotations.NotNull;
-//Caitlin
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Objects;
+
+//Caitlin
 
 public final class RouteTime implements Comparable<RouteTime>{
 
@@ -40,6 +42,8 @@ public final class RouteTime implements Comparable<RouteTime>{
 
     @Override
     public int compareTo(@NotNull RouteTime o) {
-        return 0;
+        if (isKnown() == false)
+            return 0;
+        return 1;
     }
 }
