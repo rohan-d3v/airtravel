@@ -9,26 +9,19 @@ import java.util.Objects;
 public final class RouteTime implements Comparable<RouteTime>{
 
     private final LocalTime routeTime;
-    private Boolean known;
 
     public RouteTime(LocalTime routeTime) {
-
         this.routeTime = routeTime;
-        known = true;
     }
 
-    // private constructor to make an unkown routetime
-    private RouteTime() {
-        routeTime = null;
-        known = false;
-    }
 
-    public static final RouteTime UNKNOWN(){
-        return new RouteTime();
+
+    public static final RouteTime UNKNOWN() {
+        return new RouteTime(null);
     }
 
     public boolean isKnown(){
-        return known;
+        return routeTime != null;
     }
 
     public LocalTime getTime(){
@@ -46,15 +39,12 @@ public final class RouteTime implements Comparable<RouteTime>{
 
     @Override
     public int compareTo(RouteTime o) {
-        Objects.requireNonNull(o);
-        if (!isKnown()) {
-            if(!o.isKnown())
-                return 0;
-            else
-                return -1;
+        int boolCompare = Boolean.compare(isKnown(), o.isKnown());
+        if(boolCompare != 0) {
+            return boolCompare;
         }
-        if(!o.isKnown())
-            return 1;
+        if(!isKnown())
+            return 0;
         return routeTime.compareTo(o.getTime());
     }
 }

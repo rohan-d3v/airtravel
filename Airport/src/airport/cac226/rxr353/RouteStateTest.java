@@ -57,15 +57,17 @@ public class RouteStateTest {
         setUp();
 
         RouteState state = RouteState.of(airports, cle, max_arrival);
-        Assert.assertFalse(state.allReached());
+        Assert.assertEquals(false, state.allReached());
         RouteNode ord_node = RouteNode.of(ord, new RouteTime(ord_to_fld_arrival), state.airportNode(cle));
         RouteNode fld_node = RouteNode.of(fld, new RouteTime(ord_to_fld_arrival), ord_node);
 
-        //state.replaceNode(cle_node);
         Assert.assertFalse(state.allReached());
 
         state.replaceNode(ord_node);
         state.replaceNode(fld_node);
+        while(!state.allReached()) {
+            state.closestUnreached();
+        }
         Assert.assertEquals(true, state.allReached());
     }
 

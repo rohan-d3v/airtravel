@@ -37,20 +37,18 @@ public final class RouteNode implements Comparable<RouteNode>{
     }
 
     public final Boolean isArrivalTimeKnow(){
-        return !(arrivalTime == null);
+        return arrivalTime.isKnown();
     }
 
     public final RouteTime departureTime(){
         return new RouteTime(arrivalTime.getTime().plus(airport.getConnectionTimeMin()));
     }
 
-    // TODO: FIGURE OUT HOW 2 DEAL WITH UNKNOWN TIMES
     public Set<Flight> availableFlights(FareClass fareClass) {
         Objects.requireNonNull(fareClass);
         return airport.availableFlights(arrivalTime.getTime(), fareClass);
     }
 
-    // ELLIS IS THERE A BETTER WAY TO DO THIS? Without an if statement?
     @Override
     public int compareTo(RouteNode o) {
         if(o.getArrivalTime().compareTo(arrivalTime) != 0)

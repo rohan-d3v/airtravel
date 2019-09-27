@@ -13,17 +13,17 @@ public final class RouteState {
     /**
      * ASSUMPTION: the "airports" set contains all relevant airports, i.e. any airports associated with any
      * "previous" RouteNode*/
-    // ASK ELLIS: for loop needed?
     private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
         RouteNode firstNode = RouteNode.of(origin, new RouteTime(departureTime), null);
         airportNode.put(origin, firstNode);
         reachedNodes.add(firstNode);
 
-        for(Airport airport : airports) {
-            RouteNode nodeToAdd = RouteNode.of(airport);
-            airportNode.put(airport, nodeToAdd);
-            unreached.add(nodeToAdd);
+        for(Airport airport : airports.stream()
+                                    .filter(airport -> !airport.equals(origin))
+                                    .collect(Collectors.toSet())) {
+            airportNode.put(airport, RouteNode.of(airport));
         }
+        unreached.addAll(airportNode.values());
     }
 
     public static final RouteState of(Set<Airport> airports, Airport origin, LocalTime departureTime) {
@@ -58,18 +58,11 @@ public final class RouteState {
     }
 
     public void replaceNode(RouteNode routeNode) {
+        //make this less complicated
         Objects.requireNonNull(routeNode, "Route node cannot be null");
-        RouteNode toReplace = airportNode.values().stream()
-                .filter(node -> node.getAirport().equals(routeNode.getAirport()))
-                .findAny()
-                .orElse(null);
-        if(toReplace == null) {
-            throw new IllegalArgumentException("Replacement node must have corresponding node in set of same airport");
-        }
+        RouteNode toReplace = airportNode.replace(routeNode.getAirport(), routeNode);
         unreached.remove(toReplace);
         unreached.add(routeNode);
-        airportNode.replace(routeNode.getAirport(), routeNode);
-        updateUnreached();
     }
 
     public boolean allReached() {
@@ -80,7 +73,9 @@ public final class RouteState {
         if(allReached()) {
             throw new NoSuchElementException("All airports reached!");
         }
-        return unreached.first();
+        RouteNode element = unreached.first();
+        unreached.remove(element);
+        return element;
     }
 
     public RouteNode airportNode(Airport airport) {
