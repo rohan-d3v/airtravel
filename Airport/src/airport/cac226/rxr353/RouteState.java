@@ -6,15 +6,15 @@ import java.util.stream.Collectors;
 
 public final class RouteState {
 
-    private Map<Airport, RouteNode> airportNode;
+    private Map<Airport, RouteNode> airportNode = new TreeMap<>();
     private final NavigableSet<RouteNode> unreached = new TreeSet<RouteNode>();
     private final List<RouteNode> reachedNodes = new ArrayList<RouteNode>();
 
     /**
      * ASSUMPTION: the "airports" set contains all relevant airports, i.e. any airports associated with any
      * "previous" RouteNode*/
+    // ASK ELLIS: for loop needed?
     private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
-        airportNode = new TreeMap<>();
         airportNode.put(origin, RouteNode.of(origin, new RouteTime(departureTime), null));
         for(Airport airport : airports) {
             airportNode.put(airport, RouteNode.of(airport));

@@ -8,7 +8,6 @@ public final class RouteFinder {
     
     private final Set<Airport> airports;
 
-     
     private RouteFinder(Set<Airport> airports) {
         this.airports = airports;
     }
@@ -28,16 +27,19 @@ public final class RouteFinder {
 
         RouteState routeState = RouteState.of(airports, origin, departureTime);
 
+        // ASK ELLIS: this has a complexity of 4: is there a way to lower it/is this okay?
+
         while(!routeState.allReached()) {
             RouteNode currentNode = routeState.closestUnreached();
             if(currentNode.getAirport().equals(destination)) return currentNode;
             for(Flight flight : currentNode.availableFlights(fareClass)) {
-                if(flight.arrivalTime().compareTo(currentNode.departureTime().getTime()) < 0) {
-                    routeState.replaceNode(RouteNode.of(flight.origin(), new RouteTime(flight.arrivalTime()), null));
+                //ASK ELLIS: IS THIS NECESSARY?
+                LocalTime flightArrival = flight.arrivalTime();
+                if(flightArrival.compareTo(currentNode.departureTime().getTime()) < 0) {
+                    routeState.replaceNode(RouteNode.of(flight.origin(), new RouteTime(flightArrival), null));
                 }
             }
         }
-
         return null;
     }
 }
