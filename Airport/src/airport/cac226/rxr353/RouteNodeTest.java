@@ -16,7 +16,7 @@ public class RouteNodeTest {
         RouteNode previous = RouteNode.of(Airport.of("LAX", Duration.ofHours(10)));;
         RouteNode routeNode1 = RouteNode.of(airport, routeTime, previous);
         RouteNode routeNode2 = RouteNode.of(Airport.of("ORD", Duration.ofHours(5)));
-
+	RouteNode testrouteNode1 = routeNode1;
 
     @Test
     public void isArrivalTimeKnow() {
@@ -29,11 +29,10 @@ public class RouteNodeTest {
         assertEquals(routeNode1.departureTime().getTime(), LocalTime.now(ZoneId.of("GMT-14")));
     }
 
-    @Test
-    public void availableFlights() {
-    }
 
     @Test
     public void compareTo() {
+	assertEquals(routeNode1.compareTo(routeNode2), 5);
+	assertEquals(routeNode1.compareTo(testrouteNode1), 0);
     }
 }
