@@ -20,16 +20,14 @@ public final class RouteNode implements Comparable<RouteNode>{
     public static final RouteNode of(Airport airport, RouteTime routeArrivalTime, RouteNode previous){
         Objects.requireNonNull(airport);
         Objects.requireNonNull(routeArrivalTime);
-        //Objects.requireNonNull(previous); previous can be null
 
         return new RouteNode(airport, routeArrivalTime, previous);
     }
 
     public static final RouteNode of(Flight flight, RouteNode previous){
-        Objects.requireNonNull(flight.destination());
-        //Objects.requireNonNull(previous); previous can be null
+        Objects.requireNonNull(flight);
 
-        return new RouteNode(flight.destination(), null, previous);
+        return new RouteNode(flight.destination(), new RouteTime(flight.arrivalTime()), previous);
     }
 
     public static final RouteNode of(Airport airport){
@@ -39,14 +37,11 @@ public final class RouteNode implements Comparable<RouteNode>{
     }
 
     public final Boolean isArrivalTimeKnow(){
-        if(arrivalTime == null)
-            return false;
-        return true;
+        return !(arrivalTime == null);
     }
 
     public final RouteTime departureTime(){
-        LocalTime departureTime = arrivalTime.getTime().plus(airport.getConnectionTimeMin());
-        return new RouteTime(departureTime);
+        return new RouteTime(arrivalTime.getTime().plus(airport.getConnectionTimeMin()));
     }
 
     // TODO: FIGURE OUT HOW 2 DEAL WITH UNKNOWN TIMES

@@ -6,8 +6,6 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Objects;
 
-//Caitlin
-
 public final class RouteTime implements Comparable<RouteTime>{
 
     private final LocalTime routeTime;
@@ -21,29 +19,26 @@ public final class RouteTime implements Comparable<RouteTime>{
     }
 
     public boolean isKnown(){
-        if (routeTime == null)
-            return false;
-        return true;
+        return !(routeTime == null);
     }
 
     public LocalTime getTime(){
-        if (Objects.equals(UNKNOWN(), false))
-                throw new IllegalStateException("The route time is not known");
-         return LocalTime.now();
+        if (!isKnown())
+            throw new IllegalStateException("The route time is not known");
+        return LocalTime.now();
     }
 
     public RouteTime plus(Duration duration){
-        if (duration.isZero())
+        Objects.requireNonNull(duration);
+        if (!isKnown())
              return UNKNOWN();
-
-        else
-            return new RouteTime(routeTime.plus(duration));
+        return new RouteTime(routeTime.plus(duration));
     }
 
+    // ASK ELLIS IF THIS IS LEGIT???
     @Override
     public int compareTo(RouteTime o) {
-        if (!isKnown())
-        {
+        if (!isKnown()) {
             if(!o.isKnown())
                 return 0;
             else

@@ -30,6 +30,11 @@ public class AirportTest {
     SimpleFlight BA1= SimpleFlight.of(FlightCode, l, FS,  SeatConfiguration.of(seatEnum));
 
     @Test
+    public void testFlightsAvailable() {
+
+    }
+
+    @Test
     public void testEquals() {
         assertFalse(location2.equals(random));
         assertEquals(location1.getCode(), "NYC");
