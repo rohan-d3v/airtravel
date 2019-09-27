@@ -1,6 +1,5 @@
 package airport.cac226.rxr353;
 
-
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.Assert;
@@ -8,8 +7,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 
-public class RouteStateTest {
-
+public class RouteFinderTest {
     RouteState state;
 
     LocalTime startTime             = LocalTime.now();
@@ -44,36 +42,11 @@ public class RouteStateTest {
         airports.add(cle);
         airports.add(ord);
         airports.add(fld);
-
-        //
     }
 
     @Test
-    public void replaceNode() {
-    }
-
-    @Test
-    public void allReached() {
-        setUp();
-
-        RouteState state = RouteState.of(airports, cle, max_arrival);
-        Assert.assertFalse(state.allReached());
-        RouteNode ord_node = RouteNode.of(ord, new RouteTime(ord_to_fld_arrival), state.airportNode(cle));
-        RouteNode fld_node = RouteNode.of(fld, new RouteTime(ord_to_fld_arrival), ord_node);
-
-        //state.replaceNode(cle_node);
-        Assert.assertFalse(state.allReached());
-
-        state.replaceNode(ord_node);
-        state.replaceNode(fld_node);
-        Assert.assertEquals(true, state.allReached());
-    }
-
-    @Test
-    public void closestUnreached() {
-    }
-
-    @Test
-    public void airportNode() {
+    public void route() {
+        RouteFinder routeFinder = RouteFinder.of(airports);
+        Assert.assertNotNull(routeFinder.route(cle,fld,startTime,FareClass.of(5, SeatClass.BUSINESS)));
     }
 }

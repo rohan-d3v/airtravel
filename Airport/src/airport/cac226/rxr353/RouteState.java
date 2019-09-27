@@ -15,11 +15,15 @@ public final class RouteState {
      * "previous" RouteNode*/
     // ASK ELLIS: for loop needed?
     private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
-        airportNode.put(origin, RouteNode.of(origin, new RouteTime(departureTime), null));
+        RouteNode firstNode = RouteNode.of(origin, new RouteTime(departureTime), null);
+        airportNode.put(origin, firstNode);
+        reachedNodes.add(firstNode);
+
         for(Airport airport : airports) {
-            airportNode.put(airport, RouteNode.of(airport));
+            RouteNode nodeToAdd = RouteNode.of(airport);
+            airportNode.put(airport, nodeToAdd);
+            unreached.add(nodeToAdd);
         }
-        unreached.addAll(airportNode.values());
     }
 
     public static final RouteState of(Set<Airport> airports, Airport origin, LocalTime departureTime) {
@@ -30,17 +34,18 @@ public final class RouteState {
         return new RouteState(airports, origin, departureTime);
     }
 
-    // updates unreached
-    // returns "true" if changed something
-    // ASK ELLIS IF WE'RE DOING THIS RIGHT???
+    // THERE IS SOMETHING WRONG WITH THIS BUT IT'S 2:04 AND I'M NOT SURE WHAT'S WRONG WITH IT
     private void updateUnreached() {
         List<RouteNode> previousList = unreached.stream()
                 .filter(node -> node.getPrevious() != null)
                 .collect(Collectors.toList());
+
         NavigableSet<RouteNode> nowReached = new TreeSet<RouteNode>();
 
         for(RouteNode node : previousList) {
-            if(reachedNodes.contains(node.getPrevious())) {
+            Airport previousAirport = node.getPrevious().getAirport();
+            RouteNode targetNode = airportNode.get(previousAirport);
+            if(reachedNodes.contains(targetNode)) {
                 nowReached.add(node);
             }
         }
@@ -62,6 +67,7 @@ public final class RouteState {
             throw new IllegalArgumentException("Replacement node must have corresponding node in set of same airport");
         }
         unreached.remove(toReplace);
+        unreached.add(routeNode);
         airportNode.replace(routeNode.getAirport(), routeNode);
         updateUnreached();
     }
@@ -74,9 +80,7 @@ public final class RouteState {
         if(allReached()) {
             throw new NoSuchElementException("All airports reached!");
         }
-        return unreached.stream()
-                .min(Comparator.comparing(RouteNode::getArrivalTime))
-                .get();
+        return unreached.first();
     }
 
     public RouteNode airportNode(Airport airport) {

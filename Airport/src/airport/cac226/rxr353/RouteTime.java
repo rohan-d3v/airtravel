@@ -44,7 +44,6 @@ public final class RouteTime implements Comparable<RouteTime>{
         return new RouteTime(routeTime.plus(duration));
     }
 
-    // ASK ELLIS IF THIS IS LEGIT???
     @Override
     public int compareTo(RouteTime o) {
         Objects.requireNonNull(o);

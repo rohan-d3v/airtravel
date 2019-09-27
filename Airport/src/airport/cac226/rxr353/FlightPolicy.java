@@ -113,14 +113,10 @@ public final class FlightPolicy extends AbstractFlight {
 
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> limitedPolicy = (sc, fc) -> {
             EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
-            for(SeatClass seatClass : SeatClass.values()) {
-                if(seatClass.ordinal() > 0)
-                {
-                    SeatClass nextSeatClass = SeatClass.values()[seatClass.ordinal() - 1];
-                    seats.put(seatClass, sc.seats(seatClass) + sc.seats(nextSeatClass));
-                } else {
-                    seats.put(seatClass, sc.seats(seatClass));
-                }
+            int seatClassNumber = fc.getSeatClass().ordinal();
+            seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
+            if(seatClassNumber > 0) {
+                seats.put(SeatClass.values()[seatClassNumber - 1], sc.seats(SeatClass.values()[seatClassNumber - 1]));
             }
             return SeatConfiguration.of(seats);
         };
@@ -138,18 +134,11 @@ public final class FlightPolicy extends AbstractFlight {
         Objects.requireNonNull(flight, "Flight cannot be null");
 
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> pricePolicy = (sc, fc) -> {
-            EnumMap seats;
             if(fareCutOff <= fc.getIdentifier()) {
-                int available = 0;
-                for(SeatClass seatClass : SeatClass.values()) {
-                    available += sc.seats(seatClass);
-                }
-                seats = seatConfigurationFilled(0);
+                return sc;
             } else {
-                seats = seatConfigurationFilled(0);
-                seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
+                return strict(flight).seatsAvailable(fc);
             }
-            return SeatConfiguration.of(seats);
         };
         return FlightPolicy.of(flight, pricePolicy);
     }
@@ -166,10 +155,10 @@ public final class FlightPolicy extends AbstractFlight {
         Objects.requireNonNull(flight, "Flight cannot be null");
         BiFunction<SeatConfiguration, FareClass, SeatConfiguration> pricePolicy = (sc, fc) -> {
             EnumMap seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
-            int upgradeSeatsAvailable = 0;
+            seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
             for(SeatClass seatClass : SeatClass.values()) {
-                seats.put(seatClass, upgradeSeatsAvailable);
-                upgradeSeatsAvailable += sc.seats(seatClass);
+                if(fc.getSeatClass().ordinal() > seatClass.ordinal())
+                    seats.put(seatClass, sc.seats(seatClass));
             }
             return SeatConfiguration.of(seats);
         };

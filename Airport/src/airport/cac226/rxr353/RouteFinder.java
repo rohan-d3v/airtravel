@@ -12,13 +12,12 @@ public final class RouteFinder {
         this.airports = airports;
     }
     
-    public RouteFinder of(Set<Airport> airport){
+    public static RouteFinder of(Set<Airport> airports){
         Objects.requireNonNull(airports);
         
-        return new RouteFinder(airport);
+        return new RouteFinder(airports);
     }
 
-    // ASK ELLIS: double check it's fine if our complexity is 4;
     public final RouteNode route(Airport origin, Airport destination, LocalTime departureTime, FareClass fareClass){
         Objects.requireNonNull(origin, "Airport origin must not be null");
         Objects.requireNonNull(destination, "Airport destination must not be null");
@@ -27,19 +26,20 @@ public final class RouteFinder {
 
         RouteState routeState = RouteState.of(airports, origin, departureTime);
 
-        // ASK ELLIS: this has a complexity of 4: is there a way to lower it/is this okay?
-
         while(!routeState.allReached()) {
             RouteNode currentNode = routeState.closestUnreached();
             if(currentNode.getAirport().equals(destination)) return currentNode;
-            for(Flight flight : currentNode.availableFlights(fareClass)) {
-                //ASK ELLIS: IS THIS NECESSARY?
-                LocalTime flightArrival = flight.arrivalTime();
-                if(flightArrival.compareTo(currentNode.departureTime().getTime()) < 0) {
-                    routeState.replaceNode(RouteNode.of(flight.origin(), new RouteTime(flightArrival), null));
-                }
-            }
+            routeStateHelper(routeState, currentNode, fareClass);
         }
         return null;
+    }
+
+    private void routeStateHelper(RouteState routeState, RouteNode currentNode, FareClass fareClass) {
+        for(Flight flight : currentNode.availableFlights(fareClass)) {
+            LocalTime flightArrival = flight.arrivalTime();
+            if(flightArrival.compareTo(currentNode.departureTime().getTime()) < 0) {
+                routeState.replaceNode(RouteNode.of(flight.origin(), new RouteTime(flightArrival), currentNode));
+            }
+        }
     }
 }
