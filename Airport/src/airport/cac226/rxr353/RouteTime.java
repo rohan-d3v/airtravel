@@ -1,6 +1,6 @@
 package airport.cac226.rxr353;
 
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -41,7 +41,7 @@ public final class RouteTime implements Comparable<RouteTime>{
     }
 
     @Override
-    public int compareTo(@NotNull RouteTime o) {
+    public int compareTo(RouteTime o) {
         if (!isKnown())
         {
             if(!o.isKnown())

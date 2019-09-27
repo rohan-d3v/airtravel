@@ -10,7 +10,9 @@ public final class RouteState {
     private final NavigableSet<RouteNode> unreached = new TreeSet<RouteNode>();
     private final List<RouteNode> reachedNodes = new ArrayList<RouteNode>();
 
-
+    /**
+     * ASSUMPTION: the "airports" set contains all relevant airports, i.e. any airports associated with any
+     * "previous" RouteNode*/
     private RouteState(Set<Airport> airports, Airport origin, LocalTime departureTime) {
         airportNode = new TreeMap<>();
         airportNode.put(origin, RouteNode.of(origin, new RouteTime(departureTime), null));
@@ -20,13 +22,22 @@ public final class RouteState {
         unreached.addAll(airportNode.values());
     }
 
+    public static final RouteState of(Set<Airport> airports, Airport origin, LocalTime departureTime) {
+        Objects.requireNonNull(airports);
+        Objects.requireNonNull(origin);
+        Objects.requireNonNull(departureTime);
+
+        return new RouteState(airports, origin, departureTime);
+    }
+
     // updates unreached
     // returns "true" if changed something
+    // ASK ELLIS IF WE'RE DOING THIS RIGHT???
     private void updateUnreached() {
         List<RouteNode> previousList = unreached.stream()
                 .filter(node -> node.getPrevious() != null)
                 .collect(Collectors.toList());
-        NavigableSet<RouteNode> nowReached = new TreeSet<RouteNode>;
+        NavigableSet<RouteNode> nowReached = new TreeSet<RouteNode>();
 
         for(RouteNode node : previousList) {
             if(reachedNodes.contains(node.getPrevious())) {
@@ -63,9 +74,9 @@ public final class RouteState {
         if(allReached()) {
             throw new NoSuchElementException("All airports reached!");
         }
-        return airportNode.get(unreached.stream()
-                                        .min(Comparator.comparing(RouteNode::getArrivalTime))
-                                        .get());
+        return unreached.stream()
+                .min(Comparator.comparing(RouteNode::getArrivalTime))
+                .get();
     }
 
     public RouteNode airportNode(Airport airport) {

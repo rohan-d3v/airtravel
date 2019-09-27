@@ -1,9 +1,9 @@
 package airport.cac226.rxr353;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.lang.Object.*;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Set;
 
 public final class RouteNode implements Comparable<RouteNode>{
 
@@ -49,9 +49,20 @@ public final class RouteNode implements Comparable<RouteNode>{
         return new RouteTime(departureTime);
     }
 
+    // TODO: FIGURE OUT HOW 2 DEAL WITH UNKNOWN TIMES
+    public Set<Flight> availableFlights(FareClass fareClass) {
+        Objects.requireNonNull(fareClass);
+        return airport.availableFlights(arrivalTime.getTime(), fareClass);
+    }
+
+    // ELLIS IS THERE A BETTER WAY TO DO THIS? Without an if statement?
     @Override
-    public int compareTo(@NotNull RouteNode o) {
-        return 0;
+    public int compareTo(RouteNode o) {
+        if(o.getArrivalTime().compareTo(arrivalTime) != 0)
+        {
+            return arrivalTime.compareTo(o.getArrivalTime());
+        }
+        return airport.compareTo(o.getAirport());
     }
 
 

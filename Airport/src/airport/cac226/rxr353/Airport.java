@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class Airport implements Comparable<Airport> {
 
@@ -19,8 +20,12 @@ public final class Airport implements Comparable<Airport> {
     private final FlightGroups outFlights;
 
     public Set<Flight> availableFlights(LocalTime departureTime, FareClass fareClass) {
-        // Caitlin
-        return null;
+        Objects.requireNonNull(departureTime);
+        Objects.requireNonNull(fareClass);
+
+        return outFlights.flightsAtOrAfter(departureTime).stream()
+                .filter(flight -> flight.hasSeats(fareClass))
+                .collect(Collectors.toSet());
     }
 
     private Airport(String new_code, Duration new_connectionTimeMin) {
