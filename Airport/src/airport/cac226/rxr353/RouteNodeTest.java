@@ -6,14 +6,13 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZoneId;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class RouteNodeTest {
 
 
-        Airport airport = Airport.of("NYC", Duration.ofHours(10));
-        RouteTime routeTime = new RouteTime(LocalTime.now(ZoneId.of("EST")));
+        Airport airport = Airport.of("LHR", Duration.ofHours(10));
+        RouteTime routeTime = new RouteTime(LocalTime.now(ZoneId.of("GMT")));
         RouteNode previous = RouteNode.of(Airport.of("LAX", Duration.ofHours(10)));;
         RouteNode routeNode1 = RouteNode.of(airport, routeTime, previous);
         RouteNode routeNode2 = RouteNode.of(Airport.of("ORD", Duration.ofHours(5)));
@@ -27,6 +26,7 @@ public class RouteNodeTest {
 
     @Test
     public void departureTime() {
+        assertEquals(routeNode1.departureTime().getTime(), LocalTime.now(ZoneId.of("GMT-14")));
     }
 
     @Test
