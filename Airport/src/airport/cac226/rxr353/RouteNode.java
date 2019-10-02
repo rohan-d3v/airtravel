@@ -33,7 +33,7 @@ public final class RouteNode implements Comparable<RouteNode>{
     public static final RouteNode of(Airport airport){
         Objects.requireNonNull(airport);
 
-        return new RouteNode(airport, RouteTime.UNKNOWN(), null);
+        return new RouteNode(airport, RouteTime.UNKNOWN, null);
     }
 
     public final Boolean isArrivalTimeKnow(){

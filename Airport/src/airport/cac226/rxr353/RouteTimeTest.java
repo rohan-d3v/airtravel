@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.Duration;
 
 public class RouteTimeTest {
-    private RouteTime unknown = RouteTime.UNKNOWN();
+    private RouteTime unknown = RouteTime.UNKNOWN;
     private RouteTime rt1 = new RouteTime(LocalTime.of(10, 4));
     private RouteTime rt2 = new RouteTime(LocalTime.of(4, 2));
     private Duration dur1 = Duration.ofMinutes(40);

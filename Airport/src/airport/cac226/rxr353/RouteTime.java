@@ -10,14 +10,10 @@ public final class RouteTime implements Comparable<RouteTime>{
 
     private final LocalTime routeTime;
 
+    public static final RouteTime UNKNOWN = new RouteTime(null);
+
     public RouteTime(LocalTime routeTime) {
         this.routeTime = routeTime;
-    }
-
-
-
-    public static final RouteTime UNKNOWN() {
-        return new RouteTime(null);
     }
 
     public boolean isKnown(){
@@ -33,7 +29,7 @@ public final class RouteTime implements Comparable<RouteTime>{
     public RouteTime plus(Duration duration){
         Objects.requireNonNull(duration);
         if (!isKnown())
-             return UNKNOWN();
+             return UNKNOWN;
         return new RouteTime(routeTime.plus(duration));
     }
 
