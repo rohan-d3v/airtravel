@@ -28,6 +28,9 @@ public final class RouteFinder {
 
         while(!routeState.allReached()) {
             RouteNode currentNode = routeState.closestUnreached();
+            //if(currentNode == null) {
+            //    break;
+            //}
             if(currentNode.getAirport().equals(destination))
                 return currentNode;
             routeStateHelper(routeState, currentNode, fareClass);

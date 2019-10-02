@@ -8,8 +8,6 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class RouteFinderTest {
-    RouteState state;
-
     LocalTime startTime             = LocalTime.now();
     LocalTime cle_to_ord_departure  = startTime.plusMinutes(30);
     LocalTime cle_to_ord_arrival    = cle_to_ord_departure.plusMinutes(110);
@@ -20,6 +18,7 @@ public class RouteFinderTest {
     Airport cle = Airport.of("CLE", Duration.ofMinutes(20));
     Airport ord = Airport.of("ORD", Duration.ofMinutes(100));
     Airport fld = Airport.of("FLD", Duration.ofMinutes(30));
+    Airport abc = Airport.of("ABC", Duration.ofMinutes(40));
     Set<Airport> airports = new TreeSet<Airport>();
 
     @Before
@@ -42,11 +41,14 @@ public class RouteFinderTest {
         airports.add(cle);
         airports.add(ord);
         airports.add(fld);
+        airports.add(abc);
     }
 
     @Test
     public void route() {
         RouteFinder routeFinder = RouteFinder.of(airports);
         Assert.assertNotNull(routeFinder.route(cle,fld,startTime,FareClass.of(5, SeatClass.BUSINESS)));
+
+        //Assert.assertNull(routeFinder.route(cle, abc, startTime, FareClass.of(4,SeatClass.BUSINESS)));
     }
 }

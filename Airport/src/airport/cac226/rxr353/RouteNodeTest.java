@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 public class RouteNodeTest {
 
 
-        Airport airport = Airport.of("LHR", Duration.ofHours(10));
-        RouteTime routeTime = new RouteTime(LocalTime.now(ZoneId.of("GMT")));
-        RouteNode previous = RouteNode.of(Airport.of("LAX", Duration.ofHours(10)));;
-        RouteNode routeNode1 = RouteNode.of(airport, routeTime, previous);
-        RouteNode routeNode2 = RouteNode.of(Airport.of("ORD", Duration.ofHours(5)));
+    Airport airport = Airport.of("LHR", Duration.ofHours(10));
+    RouteTime routeTime = new RouteTime(LocalTime.now(ZoneId.of("GMT")));
+    RouteNode previous = RouteNode.of(Airport.of("LAX", Duration.ofHours(10)));;
+    RouteNode routeNode1 = RouteNode.of(airport, routeTime, previous);
+    RouteNode routeNode2 = RouteNode.of(Airport.of("ORD", Duration.ofHours(5)));
 	RouteNode testrouteNode1 = routeNode1;
 
     @Test
