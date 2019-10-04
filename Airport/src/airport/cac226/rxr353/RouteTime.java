@@ -35,12 +35,13 @@ public final class RouteTime implements Comparable<RouteTime>{
 
     @Override
     public int compareTo(RouteTime o) {
-        int boolCompare = Boolean.compare(o.isKnown(), isKnown());
+        int boolCompare = Boolean.compare(isKnown(), o.isKnown());
         if(boolCompare != 0) {
             return (int) boolCompare;
         }
         if(!isKnown())
             return 0;
         return routeTime.compareTo(o.getTime());
+
     }
 }
