@@ -1,11 +1,13 @@
 package airport.cac226.rxr353;
 
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.EnumMap;
+import java.util.function.BiFunction;
 
 public class FlightPolicyTest {
     private Airport origin = Airport.of("CHI", Duration.ofHours(1));
@@ -54,6 +56,20 @@ public class FlightPolicyTest {
 
     @Test
     public void strict() {
+        EnumMap<SeatClass, Integer> seats = new EnumMap<SeatClass, Integer>(SeatClass.class);
+        int seatCounter = 4;
+        for(SeatClass seatClass : SeatClass.values()) {
+            seats.put(seatClass, seatCounter);
+            seatCounter++;
+        }
+        SeatConfiguration seatConfiguration = SeatConfiguration.of(seats);
+        Flight simpleFlight = SimpleFlight.of("CLE", leg, flightSchedule, seatConfiguration);
+        BiFunction<SeatConfiguration, FareClass, SeatConfiguration> strictPolicy = (sc, fc) -> {
+            seats.put(fc.getSeatClass(), sc.seats(fc.getSeatClass()));
+            return SeatConfiguration.of(seats);
+        };
+
+        Assert.assertEquals(FlightPolicy.strict(simpleFlight).getCode(), simpleFlight.getCode());
     }
 
     @Test
