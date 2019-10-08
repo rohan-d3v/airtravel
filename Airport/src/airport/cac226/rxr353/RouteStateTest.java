@@ -1,12 +1,15 @@
 package airport.cac226.rxr353;
 
 
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class RouteStateTest {
 
@@ -77,5 +80,11 @@ public class RouteStateTest {
 
     @Test
     public void airportNode() {
+        setUp();
+        RouteState state = RouteState.of(airports, cle, max_arrival);
+        RouteNode ord_node = RouteNode.of(ord, new RouteTime(ord_to_fld_arrival), state.airportNode(cle));
+        RouteNode fld_node = RouteNode.of(fld, new RouteTime(ord_to_fld_arrival), ord_node);
+        Assert.assertNotEquals(ord_node, fld_node);
+        Assert.assertEquals(ord_node, ord_node);
     }
 }
